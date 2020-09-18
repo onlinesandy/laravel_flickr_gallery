@@ -86,14 +86,14 @@
                 </div>
             </div>
     </body>
-    <script type="application/javascript" src="{{ asset('js/app.js') }}" ></script>
+    <!--<script type="application/javascript" src="{{ asset('js/app.js') }}" ></script>-->
 
-    <!-- <script type="application/javascript" src="{{ asset('assets/libs/jquery/dist/jquery.min.js')}}"></script> -->
+     <script type="application/javascript" src="{{ asset('assets/libs/jquery/dist/jquery.min.js')}}"></script> 
 
     <!-- Bootstrap tether Core JavaScript -->
 
     <script type="application/javascript" src="{{ asset('assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-     <!--<script type="application/javascript" src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>--> 
+     <script type="application/javascript" src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script> 
 
     <script type="application/javascript" src="{{ asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
     <script type="application/javascript" src="{{ asset('assets/extra-libs/sparkline/sparkline.js')}}"></script> -->
@@ -102,7 +102,7 @@
     <!--Menu sidebar -->
     <script type="application/javascript" src="{{ asset('dist/js/sidebarmenu.js')}}"></script>
     <!--Custom JavaScript -->
-    <script type="application/javascript" src="{{ asset('dist/js/custom.min.js')}}"></script>
+    <script type="application/javascript" src="{{ asset('dist/js/custom.js')}}"></script>
     <!--This page JavaScript -->
     <!-- <script type="application/javascript" src="{{ asset('dist/js/pages/dashboards/dashboard1.js')}}"></script> -->
     <!-- Charts js Files -->
@@ -113,20 +113,14 @@
     <script type="application/javascript" src="{{ asset('assets/libs/flot/jquery.flot.stack.js')}}"></script>
     <script type="application/javascript" src="{{ asset('assets/libs/flot/jquery.flot.crosshair.js')}}"></script>
     <script type="application/javascript" src="{{ asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js')}}"></script> 
-    <script type="application/javascript" src="{{ asset('dist/js/pages/chart/chart-page-init.js')}}"></script>
+    <!--<script type="application/javascript" src="{{ asset('dist/js/pages/chart/chart-page-init.js')}}"></script>-->
     <!--<script type="application/javascript" src="{{ asset('assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>-->
 
 <!--<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>-->
 
     <script type="application/javascript" src="{{ asset('dist/js/sweetalert.min.js')}}"></script>
     <script type="application/javascript" src="{{ asset('js/custom_app.js')}}"></script>
-    <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1557232134/toasty.js"></script>
-
-    <!--<script src="http://demo.expertphp.in/js/jquery.js"></script>-->
-    <script src="http://demo.expertphp.in/js/jquery-ui.min.js"></script>
-    <script src="{{ asset('assets/libs/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/select2/dist/js/select2.min.js') }}"></script>
-
+  
 
 
 

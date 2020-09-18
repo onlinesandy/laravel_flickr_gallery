@@ -35,16 +35,17 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h5 class="card-title">Bank List      
-                        <span class="badge badge-primary float-right" style="margin-left:10px;cursor: pointer;" data-toggle="modal" data-target="#uploadBankModal"><i class="mdi mdi-upload"></i> Upload</span> 
-                        <span class="badge badge-primary float-right" style="margin-right:5px;cursor: pointer;" data-toggle="modal" data-target="#addBankModal"><i class="mdi mdi-plus"></i> Add Bank</span>
+                    <h5 class="card-title">Category List      
+                        <span class="badge badge-primary float-right" style="margin-right:5px;cursor: pointer;" data-toggle="modal" data-target="#addCategoryModal"><i class="mdi mdi-plus"></i> Add Category</span>
                     </h5>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Bank Name </th>
+                            <th scope="col">Category Name </th>
+                            <th scope="col">Category Tag </th>
+                            <th scope="col">Category Description </th>
                             <th scope="col">Status</th>
                             <th scope="col">Action </th>
                         </tr>
@@ -53,33 +54,35 @@
                         @php
                         $sr=1;
                         @endphp
-                        @if(isset($banks) && count($banks)> 0)
-                        @forelse ($banks as $bank)
+                        @if(isset($categories) && count($categories)> 0)
+                        @forelse ($categories as $cat)
                         <tr>
-                            <th scope="row">{{ ($banks->currentPage()-1) * $banks->perPage() + $loop->index + 1 }}</th>
+                            <th scope="row">{{ ($categories->currentPage()-1) * $categories->perPage() + $loop->index + 1 }}</th>
 
-                            <td>{{$bank->name}}</td>
+                            <td>{{$cat->name}}</td>
+                            <td>{{$cat->tag}}</td>
+                            <td>{{$cat->description}}</td>
                             <td>
-                                @if($bank->stats=='')
+                                @if($cat->stats=='')
                                 <span class="badge badge-success">Active</span>
                                 @else    
                                 <span class="badge badge-warning">De-Active</span>
                                 @endif    
                             </td>
                             <td>
-                                <a href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" onclick="editBank('{{$bank->id}}','{{$bank->name}}');">
+                                <a href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" onclick="editCategory('{{$cat->id}}','{{$cat->name}}');">
                                     <span class="badge badge-primary"><i class="mdi mdi-pencil"></i></span>
                                 </a>
-                                @if($bank->stats=='')
-                                <a href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Click To Deactivate" onclick="updateBankStatus('0','{{$bank->id}}');">
+                                @if($cat->stats=='')
+                                <a href="javascript:void(0);"  data-toggle="tooltip" data-placement="top" title="" data-original-title="Click To Deactivate" onclick="updateCategoryStatus('0','{{$cat->id}}');">
                                     <span class="badge badge-success"><i class="mdi mdi-check"></i></span>
                                 </a>
                                 @else
-                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click To Activate" onclick="updateBankStatus('1','{{$bank->id}}');">
+                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click To Activate" onclick="updateCategoryStatus('1','{{$cat->id}}');">
                                     <span class="badge badge-warning"><i class="mdi mdi-close"></i></span>
                                 </a> 
                                 @endif
-                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" onclick="confirmBankDelete('{{$bank->id}}');">
+                                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete" onclick="confirmCategoryDelete('{{$cat->id}}');">
                                     <span class="badge badge-danger"><i class="mdi mdi-delete"></i></span>
                                 </a> 
 
@@ -94,7 +97,7 @@
                     </tbody>
                 </table>
                 <div class="col-md-12">
-                    <nav>{{ $banks->appends(Request::except('page'))->links() }}</nav>
+                    <nav>{{ $categories->appends(Request::except('page'))->links() }}</nav>
                 </div>
 
             </div>
@@ -102,64 +105,31 @@
 
     </div>      
 </div>
-<div class="modal fade" id="uploadBankModal" tabindex="-1" role="dialog" aria-labelledby="uploadBankModal">
+<div class="modal" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModal">
     <div class="modal-dialog" role="document ">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Upload Bank File</h5>
+                <h5 class="modal-title" id="addCategoryLabel">Add Category</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true ">×</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/importbank" method="post" enctype="multipart/form-data">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-md-3">File Upload</label>
-                                <div class="col-md-9">
-                                    <div class="custom-file">
-                                        <input name="bankFile" type="file" class="custom-file-input" id="validatedCustomFile" required="">
-                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                        <p><a href="/downloadSample?sampleFileUrl=/sample/SampleBank.xls">Sample Download</a></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="border-top">
-                            <div class="card-body" style="padding-left:0px;">
-                                {{ csrf_field() }}
-
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="addBankModal" tabindex="-1" role="dialog" aria-labelledby="addBankModal">
-    <div class="modal-dialog" role="document ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addBankLabel">Add Bank</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true ">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="/addbank" method="post">
+                <form action="/addcategory" method="post">
                     <div class="form-group">
-                        <label>Bank Name</label>
-                        <input type="text" autocomplete="off" class="form-control" id="bank_name" name="bank_name" placeholder="Enter Bank Name" required="required">
+                        <label>Category Name</label>
+                        <input type="text" autocomplete="off" class="form-control" id="cat_name" name="cat_name" placeholder="Enter Category Name" required="required">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Category Description</label>
+                        <input type="text" autocomplete="off" class="form-control" id="cat_des" name="cat_des" placeholder="Enter Category Description">
                     </div>
                     <div class="border-top">
                         <div class="card-body" style="padding-left:0px;">
                             {{ csrf_field() }}
-                            <input type="hidden" name="bankID" id="bankID" value=""/>
-                            <button type="submit" class="btn btn-primary" id="addBankBtn">Add</button>
+                            <input type="hidden" name="catID" id="catID" value=""/>
+                            <button type="submit" class="btn btn-primary" id="addCategoryBtn">Add</button>
                         </div>
                     </div>
 

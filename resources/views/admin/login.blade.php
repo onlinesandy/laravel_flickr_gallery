@@ -10,7 +10,7 @@
         <meta name="author" content="">
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="{{asset('assets/images/favicon.png')}}">
-        <title>{{ config('app.name', 'Money Transfer') }}</title>
+        <title>{{ config('app.name', 'Admin') }}</title>
         <!-- Custom CSS -->
         <link href="{{asset('dist/css/style.min.css')}}" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -77,44 +77,18 @@
                                         </div>
                                         <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="" name="password">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row border-top border-secondary">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="p-t-20">
-                                            <!--<button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Forget password?</button>-->
-                                            <a class="btn btn-info" href="/register" id="register">Register</a>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
                                             <button class="btn btn-success float-right" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row border-bottom border-secondary">
+
+                            </div>
                         </form>
-                    </div>
-                    <div id="recoverform">
-                        <div class="text-center">
-                            <span class="text-white">Enter your e-mail address below and we will send you instructions how to recover a password.</span>
-                        </div>
-                        <div class="row m-t-20">
-                            <!-- Form -->
-                            <form class="col-12" action="/">
-                                <!-- email -->
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
-                                </div>
-                                <!-- pwd -->
-                                <div class="row m-t-20 p-t-20 border-top border-secondary">
-                                    <div class="col-12">
-                                        <a class="btn btn-success" href="/login" id="to-login" name="action">Back To Login</a>
-                                        <button class="btn btn-info float-right" type="button" name="action">Recover</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
