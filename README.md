@@ -1,6 +1,6 @@
 # Laravel URL Shortener
 
-This contains the application code for the  Laravel URL Shortener. 
+This contains the application code for the  Laravel Flickr Gallery using Flickr API. 
 	The app is build on top of [Laravel framework](http://laravel.com/docs) 
 	which runs on the LAMP stack.
 
