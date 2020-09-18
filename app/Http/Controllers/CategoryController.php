@@ -8,9 +8,8 @@ use Redirect;
 use Response;
 use App\Models\Category;
 
+class CategoryController extends Controller {
 
-class CategoryController extends Controller
-{
     public function index(Request $request) {
 
         if (isset($request->search) && $request->search != '') {
@@ -27,8 +26,6 @@ class CategoryController extends Controller
         return view('admin.category')->with(['categories' => $categories, 'title' => 'Category List', 'breadcrumb' => 'Category List']);
     }
 
-    
-
     public function saveCategory(Request $request) {
         if (isset($request->catID) && $request->catID > 0) {
             $validatedData = $request->validate([
@@ -36,7 +33,13 @@ class CategoryController extends Controller
                     ], [
                 'cat_name.unique' => 'Category Already Exists',
             ]);
-            $upRecords = Category::where('id', $request->catID)->update(array('name' => $request->cat_name, 'updated_at' => date('Y-m-d H:i:s'),'modified_by' => Auth::user()->id));
+            $upRecords = Category::where('id', $request->catID)
+                    ->update(
+                    array(
+                        'name' => ucwords(strtolower($request->cat_name)),
+                        'tag' => (strtolower($request->cat_name)),
+                        'description' => $request->cat_des,
+                        'updated_at' => date('Y-m-d H:i:s'), 'modified_by' => Auth::user()->id));
 
             return back()->with('message', array('type' => 'success', 'text' => 'Category Updated Successfully'));
         } else {
@@ -48,9 +51,11 @@ class CategoryController extends Controller
 
             Category::create([
                 'name' => ucwords(strtolower($request->cat_name)),
+                'tag' => (strtolower($request->cat_name)),
+                'description' => $request->cat_des,
                 'modified_by' => Auth::user()->id
             ]);
-            return Redirect::to("/cat")
+            return Redirect::to("/cat_list")
                             ->with('message', array('type' => 'success', 'text' => 'Category Added Successfully'));
         }
     }
@@ -58,7 +63,7 @@ class CategoryController extends Controller
     public function delCategory(Request $request) {
         $delRecords = FALSE;
         if (isset($request->id) && $request->id > 0) {
-            $delRecords = Category::where('id', $request->id)->update(array('delstats' => 'X', 'updated_at' => date('Y-m-d H:i:s'),'modified_by' => Auth::user()->id));
+            $delRecords = Category::where('id', $request->id)->update(array('delstats' => 'X', 'updated_at' => date('Y-m-d H:i:s'), 'modified_by' => Auth::user()->id));
         }
         if ($delRecords) {
             return Response::json(array('type' => 'success', 'text' => 'Record has been deleted'));
@@ -70,9 +75,9 @@ class CategoryController extends Controller
     public function updateStatusCategory(Request $request) {
         $upRecords = FALSE;
         if (isset($request->id) && $request->id > 0 && $request->type == '1') {
-            $upRecords = Category::where('id', $request->id)->update(array('stats' => '', 'updated_at' => date('Y-m-d H:i:s'),'modified_by' => Auth::user()->id));
+            $upRecords = Category::where('id', $request->id)->update(array('stats' => '', 'updated_at' => date('Y-m-d H:i:s'), 'modified_by' => Auth::user()->id));
         } else {
-            $upRecords = Category::where('id', $request->id)->update(array('stats' => 'X', 'updated_at' => date('Y-m-d H:i:s'),'modified_by' => Auth::user()->id));
+            $upRecords = Category::where('id', $request->id)->update(array('stats' => 'X', 'updated_at' => date('Y-m-d H:i:s'), 'modified_by' => Auth::user()->id));
         }
         if ($upRecords) {
             return Response::json(array('type' => 'success', 'text' => 'Record Updated Successfully'));
@@ -80,4 +85,5 @@ class CategoryController extends Controller
             return Response::json(array('type' => 'error', 'text' => 'Something Went Wrong'));
         }
     }
+
 }
