@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+
 
 
 
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();
 
+    Route::get('/', 'FlickerController@index');
+    Route::get('/getFlickrPics', 'FlickerController@getFlickrPics')->name('getFlickrPics');
 
 	Route::get('/login', 'LoginController@index')->name('Adminlogin');
 	Route::post('/login', 'LoginController@login');
