@@ -29,7 +29,11 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 	Route::group(['middleware' => ['auth']], function () {
 	    //DashboardContoller
-	    Route::get('/cat_list', 'CategoryController@index')->name('dashboard');
+	    Route::get('/cat_list', 'CategoryController@index')->name('CatList');
+	    Route::post('/addcategory', 'CategoryController@saveCategory')->name('saveCategory');
+	    Route::post('/delcategory', 'CategoryController@delCategory')->name('delCategory');
+	    Route::post('/delcategory', 'CategoryController@delCategory')->name('delCategory');
+	    Route::post('/updateStatusCategory', 'CategoryController@updateStatusCategory')->name('updateStatusCategory');
 
 
 	});
